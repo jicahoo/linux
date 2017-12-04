@@ -12,5 +12,6 @@ Learning Linux and OS knowledge
 
 ## 如何透彻理解epoll.
 * 基础是你要理解Linux的文件描述符，Socket编程的细节。
+* 你也要理解epoll之前的解决方案：select, <深入理解计算机系统>介绍的还算可以。
 * https://banu.com/blog/2/how-to-use-epoll-a-complete-example-in-c/
 
