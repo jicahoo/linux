@@ -178,14 +178,16 @@ int main (int argc, char *argv[])
     events = calloc (MAXEVENTS, sizeof event);
 
     /* The event loop */
+    int evt_rnd = 0;
     while (1) {
+        evt_rnd++;
         int n, i;
 
-        printf("[INFO] Event loop one round.\n");
+        printf("[INFO] [EventRound: %d].\n", evt_rnd);
         n = epoll_wait (efd, events, MAXEVENTS, -1);
-        printf("[INFO] Got %d events.\n", n);
+        printf("[INFO] Got %d events. [EventRound: %d].\n", n, evt_rnd);
         for (i = 0; i < n; i++) {
-            printf("\t[INFO] Handle event at index: %d\n", i);
+            printf("\t[INFO] [EventRound: %d, EventIndex: %d]. \n", evt_rnd, i);
             if ((events[i].events & EPOLLERR) ||
                     (events[i].events & EPOLLHUP) ||
                     (!(events[i].events & EPOLLIN))) {
@@ -195,9 +197,11 @@ int main (int argc, char *argv[])
                 close (events[i].data.fd);
                 continue;
             } else if (sfd == events[i].data.fd) {
-                /* We have a notification on the listening socket, which
-                   means one or more incoming connections. */
+                int nconn_nr = 0;
+                //One event got, but there maybe several pending incoming connections on the sfd.
+                //So need a loop for connect them.
                 while (1) {
+                    nconn_nr++;
                     struct sockaddr in_addr;
                     socklen_t in_len;
                     int infd;
@@ -221,8 +225,8 @@ int main (int argc, char *argv[])
                             sbuf, sizeof sbuf,
                             NI_NUMERICHOST | NI_NUMERICSERV);
                     if (s == 0) {
-                        printf("\t[INFO]Accepted connection on socket file descriptor %d "
-                                "(host=%s, port=%s)\n", infd, hbuf, sbuf);
+                        printf("\t[INFO] Accepted connection on socket file descriptor %d "
+                                "(host=%s, port=%s) [EventRound: %d, NewConnRound: %d]. \n", infd, hbuf, sbuf, evt_rnd, nconn_nr);
                     }
 
                     /* Make the incoming socket non-blocking and add it to the
@@ -251,8 +255,10 @@ int main (int argc, char *argv[])
                    data. */
                 int done = 0;
 
+                int rd_rnd=0;
                 while (1) {
-                    printf("\t[INFO]While loop for read data from socket: %d\n", events[i].data.fd);
+                    rd_rnd++;
+                    printf("\t[INFO]Read socket: %d. [EventRound: %d, ReadSocketRound: %d].\n", events[i].data.fd, evt_rnd, rd_rnd);
                     ssize_t count;
                     char buf[8];
 
@@ -273,7 +279,7 @@ int main (int argc, char *argv[])
                     }
 
                     /* Write the buffer to standard output */
-                    s = write (2, buf, count);
+                    s = write (1, buf, count);
                     if (s == -1) {
                         perror ("write");
                         abort ();
@@ -281,7 +287,7 @@ int main (int argc, char *argv[])
                 }
 
                 if (done) {
-                    printf ("\t[INFO] Closed connection on descriptor %d\n", events[i].data.fd);
+                    printf ("\t[INFO] Closed connection on descriptor %d. [EventRound: %d, ReadSocketRound: %d].\n", events[i].data.fd, evt_rnd, rd_rnd);
 
                     /* Closing the descriptor will make epoll remove it
                        from the set of descriptors which are monitored. */
