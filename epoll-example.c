@@ -102,6 +102,7 @@ static int create_and_bind (char *port)
             printf("[OK] Socket Bind successfully.\n");
             break;
         } else {
+            // http://students.mimuw.edu.pl/SO/Linux/Kod/include/linux/socket.h.html
             //May try differnt ai_family. IPv4 or IPv6.
             printf("[WARN] Socket bind failed. Error message: %s. Try next one...\n", strerror(errno));
         }
