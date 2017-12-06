@@ -26,3 +26,34 @@ Learning Linux and OS knowledge
 * JAVA NIO
 * Netty (Netty has native epoll)
 * Scala: https://ci.apache.org/projects/flink/flink-docs-release-1.2/dev/stream/asyncio.html Flick aysnc io.http://wuchong.me/blog/2017/05/17/flink-internals-async-io/
+
+##　Go netpoller
+* https://stackoverflow.com/questions/36112445/golang-blocking-and-non-blocking
+```go
+func (fd *netFD) Read(p []byte) (n int, err error) {
+    if err := fd.readLock(); err != nil {
+        return 0, err
+    }
+    defer fd.readUnlock()
+    if err := fd.pd.PrepareRead(); err != nil {
+        return 0, err
+    }
+    for {
+        n, err = syscall.Read(fd.sysfd, p)
+        if err != nil {
+            n = 0
+            if err == syscall.EAGAIN {
+                if err = fd.pd.WaitRead(); err == nil {
+                    continue
+                }
+            }
+        }
+        err = fd.eofError(n, err)
+        break
+    }
+    if _, ok := err.(syscall.Errno); ok {
+        err = os.NewSyscallError("read", err)
+    }
+    return
+}
+```
