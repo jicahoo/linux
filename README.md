@@ -29,31 +29,3 @@ Learning Linux and OS knowledge
 
 ##　Go netpoller
 * https://stackoverflow.com/questions/36112445/golang-blocking-and-non-blocking
-```go
-func (fd *netFD) Read(p []byte) (n int, err error) {
-    if err := fd.readLock(); err != nil {
-        return 0, err
-    }
-    defer fd.readUnlock()
-    if err := fd.pd.PrepareRead(); err != nil {
-        return 0, err
-    }
-    for {
-        n, err = syscall.Read(fd.sysfd, p)
-        if err != nil {
-            n = 0
-            if err == syscall.EAGAIN {
-                if err = fd.pd.WaitRead(); err == nil {
-                    continue
-                }
-            }
-        }
-        err = fd.eofError(n, err)
-        break
-    }
-    if _, ok := err.(syscall.Errno); ok {
-        err = os.NewSyscallError("read", err)
-    }
-    return
-}
-```
