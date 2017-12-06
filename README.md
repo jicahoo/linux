@@ -13,7 +13,7 @@ Learning Linux and OS knowledge
 ## 如何透彻理解epoll.
 * epoll主要是在server端，更高效地（省CPU和线程资源）处理SocketIO, 对TCP协议而言，就是透明的。
 * 基础是你要理解Linux的文件描述符，Socket编程的细节。
-* Socket描述符，设置成非阻塞，意味着什么？
+* Socket描述符，设置成非阻塞，意味着什么？https://www.scottklement.com/rpg/socktut/nonblocking.html blocking vs non blocking io
 * TCP在两端是如何实现和交互的。
   * http://www.ece.virginia.edu/cheetah/documents/papers/TCPlinux.pdf TCP implementation in Linux
 
