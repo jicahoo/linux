@@ -22,4 +22,4 @@ Learning Linux and OS knowledge
 * https://banu.com/blog/2/how-to-use-epoll-a-complete-example-in-c/
 ## epoll在不同语言里面的体现
 * http://python.jobbole.com/88291/ Python 深入理解 Python 异步编程
-* https://morsmachine.dk/netpoller Go Lang netpoller. 实现更炫。
+* https://morsmachine.dk/netpoller Go Lang netpoller. 实现更炫。你要理解Go语言是如何调度go routine的。https://www.bbsmax.com/A/x9J2xjPMd6/ Go并发小结。
