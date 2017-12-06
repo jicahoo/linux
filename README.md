@@ -23,3 +23,6 @@ Learning Linux and OS knowledge
 ## epoll在不同语言里面的体现
 * http://python.jobbole.com/88291/ Python 深入理解 Python 异步编程 英文源：http://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html
 * https://morsmachine.dk/netpoller Go Lang netpoller. 实现更炫。你要理解Go语言是如何调度go routine的。https://www.bbsmax.com/A/x9J2xjPMd6/ Go并发小结。
+* JAVA NIO
+* Netty (Netty has native epoll)
+* Scala: https://ci.apache.org/projects/flink/flink-docs-release-1.2/dev/stream/asyncio.html Flick aysnc io.http://wuchong.me/blog/2017/05/17/flink-internals-async-io/
