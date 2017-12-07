@@ -16,6 +16,7 @@ stack@ubuntu16-dev:~/go$ sudo strace -p 30412
 strace: Process 30412 attached
 epoll_wait(4,
 ```
+* strace是基于ptrace系统调用开发的。
 
 ## ps
 * 列出轻量级线程：ps -p 30408 -L
