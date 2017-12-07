@@ -4,11 +4,21 @@ Learning Linux and OS knowledge
 # /proc
 * http://advancedlinuxprogramming.com/alp-folder/alp-ch07-proc-filesystem.pdf
 
-# ptrace
+## ptrace
 * https://www.mkssoftware.com/docs/man3/wait3.3.asp
 * http://blog.csdn.net/edonlii/article/details/8717029
 
+## strace
+* 对应Unix-like的truss.
+* 可以查看应用程序相关的系统调用。在研究Go语言的socket编程的时候，用到了，发现某个LWP会停在epoll_wait(4处。类似如下输出:
+```bash
+stack@ubuntu16-dev:~/go$ sudo strace -p 30412
+strace: Process 30412 attached
+epoll_wait(4,
+```
 
+## ps
+* 列出轻量级线程：ps -p 30408 -L
 
 ## 如何透彻理解epoll.
 * epoll主要是在server端，更高效地（省CPU和线程资源）处理SocketIO, 对TCP协议而言，就是透明的。
