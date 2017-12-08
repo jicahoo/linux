@@ -40,3 +40,31 @@ epoll_wait(4,
 
 ##　Go netpoller
 * https://stackoverflow.com/questions/36112445/golang-blocking-and-non-blocking
+
+## Python 3.5 asyncio
+* Code. see python-echo-server-asyncio.py
+
+* strace result. Saw epoll_wait, mremap. 
+```bash
+sudo strace -p 8494  #8489 is the pid of python.
+[sudo] password for jichao: 
+strace: Process 8494 attached
+epoll_wait(3, [{EPOLLIN, {u32=7, u64=3359015547638382599}}], 3, -1000) = 1
+mmap(NULL, 266240, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f092accc000
+recvfrom(7, "hello\r\n", 262144, 0, NULL, NULL) = 7
+mremap(0x7f092accc000, 266240, 4096, MREMAP_MAYMOVE) = 0x7f092accc000
+write(2, "EchoServer_127.0.0.1_46318: rece"..., 50) = 50
+sendto(7, "hello\r\n", 7, 0, NULL, 0)   = 7
+write(2, "EchoServer_127.0.0.1_46318: sent"..., 46) = 46
+munmap(0x7f092accc000, 4096)            = 0
+epoll_wait(3, [{EPOLLIN, {u32=7, u64=3359015547638382599}}], 3, -1000) = 1
+mmap(NULL, 266240, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f092accc000
+recvfrom(7, "Nihao\r\n", 262144, 0, NULL, NULL) = 7
+mremap(0x7f092accc000, 266240, 4096, MREMAP_MAYMOVE) = 0x7f092accc000
+write(2, "EchoServer_127.0.0.1_46318: rece"..., 50) = 50
+sendto(7, "Nihao\r\n", 7, 0, NULL, 0)   = 7
+write(2, "EchoServer_127.0.0.1_46318: sent"..., 46) = 46
+munmap(0x7f092accc000, 4096)            =
+
+```
+
