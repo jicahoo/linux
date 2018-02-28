@@ -19,5 +19,5 @@ To help eliminate internal fragmentation normally caused by a binary buddy alloc
 ```
 
 * 通用slab和专用slab. 通用slab就是给kmalloc用的, 在/proc/slabinfo中，类似kmalloc-32的行，都是通用slab.
-  * Link: https://argp.github.io/2012/01/03/linux-kernel-heap-exploitation/
+  * Link: https://argp.github.io/2012/01/03/linux-kernel-heap-exploitation/
   * Digest: As an example consider that a slab for the structure task_struct has 31 slots. The size of a task_struct is 1040 bytes, so assuming that a page is 4096 bytes (the default) then a task_struct slab is 8 pages long. Apart from the structure-specific slabs, like the one above for task_struct, there are also the so called general purpose slabs which are used to serve arbitrary-sized kmalloc() requests. These requests are adjusted by the allocator for alignment and assigned to a suitable slab.
