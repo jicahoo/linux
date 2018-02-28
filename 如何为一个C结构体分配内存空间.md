@@ -22,7 +22,7 @@ To help eliminate internal fragmentation normally caused by a binary buddy alloc
   * Link: https://argp.github.io/2012/01/03/linux-kernel-heap-exploitation/
   * Digest: As an example consider that a slab for the structure task_struct has 31 slots. The size of a task_struct is 1040 bytes, so assuming that a page is 4096 bytes (the default) then a task_struct slab is 8 pages long. Apart from the structure-specific slabs, like the one above for task_struct, there are also the so called general purpose slabs which are used to serve arbitrary-sized kmalloc() requests. These requests are adjusted by the allocator for alignment and assigned to a suitable slab.
 * 进程空间分配和内核存储管理的基本关系，阐述。进程的堆空间就是虚拟地址，在虚拟空间一层开辟空间的时候，如遇不足，肯定会向操作系统申请空余的物理页，并映射到虚拟地址空间。所以，**内存空间的增长在RAM物理层是以4K（页大小)为粒度增长的?(确认?).** 而malloc函数就在虚拟地址空间之上工作，它不管具体映射到哪个物理页，它只知道我访问的地址最终会映射到物理内存，它就在虚拟地址空间这一层次，直接建立数据结构（List)，去维护这个进程的堆空间，空闲的，非空闲的，申请，释放。
-  * Link: https://stackoverflow.com/a/997737/4153267
+  * Link: https://stackoverflow.com/a/997737/4153267
   * you have to understand how virtual memory works, and how an MMU mapping relates to real RAM.
   * real RAM is divided in pages, traditionally 4kB each. each process has its own MMU mapping, which presents to that process a linear memory space (4GB in 32-bit linux). of course, not all of them is actually allocated. at first, it's almost empty, that is no real page is associated with most addresses.
   * when the process hits a non-allocated address (either trying to read, write or execute it), the MMU generates a fault (similar to an interrupt), and the VM system is invoked. If it decides that some RAM should be there, it picks an unused RAM page and associates with that address range.
