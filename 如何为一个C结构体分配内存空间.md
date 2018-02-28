@@ -6,8 +6,8 @@
 
 ## 参考
 * 阐述了SLAB的目标, kmalloc和SLAB的关系: https://www.kernel.org/doc/gorman/html/understand/understand011.html
-  * SLAB三个目标：分配小块内存，做Cache, L1/L2 Cache Leverage. 注意第一个目标是分配小块内存，防止内存碎片。
-  * kmalloc利用SLAB才得以具有分配任意大小块的能力。
+  * SLAB三个目标：分配小块内存，做Cache, L1/L2 Cache Leverage. 注意第一个目标是分配小块内存，防止内存碎片。
+  * kmalloc利用SLAB才得以具有分配任意大小块的能力。
 ```
 The slab allocator has three principle aims:
 
