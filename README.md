@@ -78,3 +78,10 @@ munmap(0x7f092accc000, 4096)            =
 
 ```
 
+
+## Linux device file
+* https://askubuntu.com/questions/397493/what-does-the-first-character-of-unix-mode-string-indicate
+* https://www.cyberciti.biz/faq/understanding-unix-linux-bsd-device-files/
+* https://unix.stackexchange.com/questions/18239/understanding-dev-and-its-subdirs-and-files/18534#18534
+* http://www.tldp.org/LDP/lkmpg/2.4/html/c577.htm
+
