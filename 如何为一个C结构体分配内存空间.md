@@ -13,6 +13,8 @@
 * https://en.wikipedia.org/wiki/C_standard_library
 * https://www.gnu.org/software/libc/libc.html
 * https://stackoverflow.com/questions/11372872/what-the-role-of-libcglibc-in-our-linux-app
+* malloc使用了系统调用：brk和mmap, 小内存用brk, 大内存用mmap.
+
 
 ## 参考
 * 阐述了SLAB的目标, kmalloc和SLAB的关系: https://www.kernel.org/doc/gorman/html/understand/understand011.html
