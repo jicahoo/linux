@@ -4,3 +4,4 @@
 * mmap的缺点，适用面不如read广泛，mmap基于page fault,如果你的读写场景会引入很多的page fault，性能不一定比read好, page fault也是很消耗时间的操作，
 * mmap场景，长时间打开的文件，如数据库文件：
   * Only applications such as databases which open a file and then keep them open for a long long time prefer to use mmap().
+* mmap不仅用于读取文件，和read系统比较；又可以用于开辟内存空间，和brk系统调用比较。
