@@ -16,6 +16,7 @@
 * malloc使用了系统调用：brk和mmap, 小内存用brk, 大内存用mmap.
 
 
+
 ## 参考
 * 阐述了SLAB的目标, kmalloc和SLAB的关系: https://www.kernel.org/doc/gorman/html/understand/understand011.html
   * SLAB三个目标：分配小块内存，做Cache, L1/L2 Cache Leverage. 注意第一个目标是分配小块内存，防止内存碎片。
@@ -44,3 +45,6 @@ To help eliminate internal fragmentation normally caused by a binary buddy alloc
 
 ## malloc, brk/sbrk, mmap
 * https://vinoit.me/2016/05/20/linux-memory-alloc/
+
+## References
+* https://elinux.org/images/b/b0/Introduction_to_Memory_Management_in_Linux.pdf
