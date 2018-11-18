@@ -29,3 +29,6 @@ To help eliminate internal fragmentation normally caused by a binary buddy alloc
   * that way, the kernel doesn't care how the process uses memory, and the process doesn't really care how much RAM there is, it will always have the same linear 4GB of address space.
   * now, the brk/sbrk work at a slightly higher level: in principle any memory address 'beyond' that mark is invalid and won't get a RAM page if accessed, the process would be killed instead. the userspace library manages memory allocations within this limit, and only when needed ask the kernel to increase it.
   * But even if a process started by setting brk to the maximum allowed, it wouldn't get real RAM pages allocated until it starts accessing all that memory addresses.
+
+## malloc, brk/sbrk, mmap
+* https://vinoit.me/2016/05/20/linux-memory-alloc/
