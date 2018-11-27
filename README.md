@@ -10,9 +10,11 @@ Learning Linux and OS knowledge
  
 # Q&A
 * 多进程写文件，会有并发问题吗？有，参见，<Unix环境高级编程> 3.1.1 原子操作。
+* 为什么VSS会增长? 
+
 # /proc
 * http://advancedlinuxprogramming.com/alp-folder/alp-ch07-proc-filesystem.pdf
-* 为什么VSS会增长? 
+
 
 ## ptrace
 * https://www.mkssoftware.com/docs/man3/wait3.3.asp
