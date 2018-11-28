@@ -13,6 +13,7 @@ Learning Linux and OS knowledge
 * 为什么VSS会增长? 
  * 在Linux操作系统上，任何的内存分配调用最终都会落到两个系统调用上：brk 或 mmap. 这两个系统调用分配的是虚拟内存，只有你第一次读写对应虚拟内存区域的时候，就会发生缺页中断，真正分配一个物理页（这个页就会占用RSS）。那么，什么情况下，物理页释放了，但是VSS不会随之下降？
  * brk(negative_num),munmap都应该会释放物理页（去掉虚拟内存和物理页之间的映射）
+ * 《Linux内核的设计与实现》第15章，进程地址空间，每个进程都有个进程描述符mm_struct, mm_struct是由vma(虚拟内存区域)组成的。vm_area_struct对应的操作，就有close操作`void close(struct vm_area_struct *area)`，该操作就会将指定的内存区域移除（虚拟）地址空间。估计munmap就会调用该内核函数。
  * https://stackoverflow.com/questions/561245/virtual-memory-usage-from-java-under-linux-too-much-memory-used/561450#561450
  * https://stackoverflow.com/questions/7880784/what-is-rss-and-vsz-in-linux-memory-management
  * https://blog.holbertonschool.com/hack-the-virtual-memory-malloc-the-heap-the-program-break/
