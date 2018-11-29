@@ -12,8 +12,12 @@ Learning Linux and OS knowledge
 * 多进程写文件，会有并发问题吗？有，参见，<Unix环境高级编程> 3.1.1 原子操作。
 * 为什么VSS会增长? 
  * 在Linux操作系统上，任何的内存分配调用最终都会落到两个系统调用上：brk 或 mmap. 这两个系统调用分配的是虚拟内存，只有你第一次读写对应虚拟内存区域的时候，就会发生缺页中断，真正分配一个物理页（这个页就会占用RSS）。那么，什么情况下，物理页释放了，但是VSS不会随之下降？
- * brk(negative_num),munmap都应该会释放物理页（去掉虚拟内存和物理页之间的映射）
+ * brk(negative_num),munmap都应该会释放物理页（去掉虚拟内存和物理页之间的映射)
  * 《Linux内核的设计与实现》第15章，进程地址空间，每个进程都有个进程描述符mm_struct, mm_struct是由vma(虚拟内存区域)组成的。vm_area_struct对应的操作，就有close操作`void close(struct vm_area_struct *area)`，该操作就会将指定的内存区域移除（虚拟）地址空间。munmap就会调用该内核函数，参见：https://github.com/torvalds/linux/blob/master/mm/mmap.c
+ * VSS什么情况下会下降？
+    * 调用brk(negative_num)
+    * munmap
+    * 但是，在C语言层面，free的内存是堆上的话，并不一定导致调用brk(negative_num), 而已，也不会去掉对应虚拟地址与物理页的映射，因为操作系统并不知道这个free(没有触发系统调用），free是C语言层面的，malloc会管理堆。只是在系统发现内存紧张的时候，会把这个对应的物理页交换(swap)出去。因为在C语言层面已经释放，不会有新的访问，所以，操作系统会觉察到这个物理页不是活跃的页，就会把它交换出去。如果该物理页在某一时刻，又被加载回来，随后，某个malloc调用，可能会被重新分配到这个虚拟地址和对应物理页，继续使用。Chen 看了malloc源码得到的结论。
  * https://stackoverflow.com/questions/561245/virtual-memory-usage-from-java-under-linux-too-much-memory-used/561450#561450
  * https://stackoverflow.com/questions/7880784/what-is-rss-and-vsz-in-linux-memory-management
  * https://blog.holbertonschool.com/hack-the-virtual-memory-malloc-the-heap-the-program-break/
