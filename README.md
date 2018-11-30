@@ -19,6 +19,7 @@ Learning Linux and OS knowledge
     * munmap
     * 但是，在C语言层面，free的内存是堆上的话，并不一定导致调用brk(negative_num), 而已，也不会去掉对应虚拟地址与物理页的映射，因为操作系统并不知道这个free(没有触发系统调用），free是C语言层面的，malloc会管理堆。只是在系统发现内存紧张的时候，会把这个对应的物理页交换(swap)出去。因为在C语言层面已经释放，不会有新的访问，所以，操作系统会觉察到这个物理页不是活跃的页，就会把它交换出去。如果该物理页在某一时刻，又被加载回来，随后，某个malloc调用，可能会被重新分配到这个虚拟地址和对应物理页，继续使用。Chen 看了malloc源码得到的结论。
     * JVM中reserved size是VSS, 但committed size并不是RSS, committed是JVM层面的统计信息，应用程序本身是无法通过自己计算出RSS, RSS只有操作系统有能力知道。什么是JVM中Commited，我们猜测是如下的解释，JVM可以调用mmap开辟一段虚拟地址空间，假设是10MB, 假设我们把一个大小为int\[1024\*1024\]数组，我们把前512\*1024个元素设置为1, 并放在mmap开辟的10MB空间里面，那么这个情况下，我们用了 VSS  10MB，   Committed 4MB,  RSS: 2MB. 假设一个int占用四个字节。Commited就是JVM层次的统计。 RSS是我们根据操作系统机制推算出的，应用程序并不知道这个信息。Try example to verify it: http://www.mathcs.emory.edu/~cheung/Courses/255/Syllabus/2-C-adv-data/dyn-array.html 
+    * Java Reserved vs Commited: https://stackoverflow.com/questions/31173374/why-does-a-jvm-report-more-committed-memory-than-the-linux-process-resident-set
     
     
  * https://stackoverflow.com/questions/561245/virtual-memory-usage-from-java-under-linux-too-much-memory-used/561450#561450
