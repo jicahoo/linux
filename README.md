@@ -23,7 +23,7 @@ Learning Linux and OS knowledge
     * JVM code: https://github.com/unofficial-openjdk/openjdk/blob/531ef5d0ede6d733b00c9bc1b6b3c14a0b2b3e81/src/hotspot/share/services/memReporter.cpp
     * 理解JVM里面一些有关内存的指标，你还需要了解glibc的malloc函数，它是如何为应用程序提供内存分配和释放服务的。OS(brk, mmap) -> glibc (malloc) -> C/C++ (new/delete, 引用计数的对象生命周期管理, GC算法) -> Java (new)。可以继续研究NMT的实现与各项指标。
     * 有个JVM的内存分布图很不错：https://yq.aliyun.com/articles/227924
-    * ![JVM Memory](https://yqfile.alicdn.com/0ae26dc6b2bb06c333a4cda7b4b91bb692abb1c8.png)
+
  * https://stackoverflow.com/questions/561245/virtual-memory-usage-from-java-under-linux-too-much-memory-used/561450#561450
  * https://stackoverflow.com/questions/7880784/what-is-rss-and-vsz-in-linux-memory-management
  * https://blog.holbertonschool.com/hack-the-virtual-memory-malloc-the-heap-the-program-break/
