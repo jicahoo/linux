@@ -32,7 +32,6 @@ Learning Linux and OS knowledge
 # /proc
 * http://advancedlinuxprogramming.com/alp-folder/alp-ch07-proc-filesystem.pdf
 
-
 ## ptrace
 * https://www.mkssoftware.com/docs/man3/wait3.3.asp
 * http://blog.csdn.net/edonlii/article/details/8717029
@@ -46,6 +45,15 @@ strace: Process 30412 attached
 epoll_wait(4,
 ```
 * strace是基于ptrace系统调用开发的。
+* 使用strace找出JVM abort&core dump的直接原因：谁给JVM发送了ABORT（夭折，未正常退出）信号。si_pid=7364就是ABORT信号发送者。
+```text
+strace -p 582 #582 is the java process id.
+Process 582 attached
+[ Process PID=582 runs in 32 bit mode. ]
+futex(0xf770cba8, FUTEX_WAIT, 583, NULL) = ? ERESTARTSYS (To be restarted if SA_RESTART is set)
+--- SIGABRT {si_signo=SIGABRT, si_code=SI_USER, si_pid=7364, si_uid=0} ---
++++ killed by SIGABRT (core dumped) +++
+```
 
 ## ps
 * 列出轻量级线程：ps -p 30408 -L
