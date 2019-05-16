@@ -46,6 +46,7 @@ epoll_wait(4,
 ```
 * strace是基于ptrace系统调用开发的。
 * 使用strace找出JVM abort&core dump的直接原因：谁给JVM发送了ABORT（夭折，未正常退出）信号。si_pid=7364就是ABORT信号发送者。
+    * 进程接收到ABRT信号的默认行为就是结束进程并产生core dump.
     * Related links:
         * https://stackoverflow.com/questions/8400530/how-can-i-tell-in-linux-which-process-sent-my-process-a-signal
         * https://www.ibm.com/developerworks/community/blogs/aimsupport/entry/Finding_the_source_of_signals_on_Linux_with_strace_auditd_or_Systemtap?lang=en
