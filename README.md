@@ -58,7 +58,15 @@ futex(0xf770cba8, FUTEX_WAIT, 583, NULL) = ? ERESTARTSYS (To be restarted if SA_
 --- SIGABRT {si_signo=SIGABRT, si_code=SI_USER, si_pid=7364, si_uid=0} ---
 +++ killed by SIGABRT (core dumped) +++
 ```
+* 可以用GDB从core dumpz中直接找到进程收到的信号: print $\_siginfo. 输出就是结构体siginfo_t的实例, 结构体siginfo_t的源代码可以参考一下这里：https://github.com/lattera/glibc/blob/master/sysdeps/unix/sysv/linux/bits/types/siginfo_t.h
+```text
+Another more suitable method is to find the signal info from core dump directly.
+(gdb) print $_siginfo
+$1 = {si_signo = 6, si_errno = 0, si_code = 0, _sifields = {_pad = {7364, 0 <repeats 28 times>}, _kill = {si_pid = 7364, si_uid = 0}, _timer = {si_tid = 7364, si_overrun = 0, si_sigval = {
+        sival_int = 0, sival_ptr = 0x0}}, _rt = {si_pid = 7364, si_uid = 0, si_sigval = {sival_int = 0, sival_ptr = 0x0}}, _sigchld = {si_pid = 7364, si_uid = 0, si_status = 0, si_utime = 0,
+      si_stime = 0}, _sigfault = {si_addr = 0x1cc4}, _sigpoll = {si_band = 7364, si_fd = 0}}}
 
+```
 
 
 ## ps
