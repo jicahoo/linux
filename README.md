@@ -55,6 +55,10 @@ futex(0xf770cba8, FUTEX_WAIT, 583, NULL) = ? ERESTARTSYS (To be restarted if SA_
 +++ killed by SIGABRT (core dumped) +++
 ```
 
+    * Related links:
+        * https://stackoverflow.com/questions/8400530/how-can-i-tell-in-linux-which-process-sent-my-process-a-signal
+        * https://www.ibm.com/developerworks/community/blogs/aimsupport/entry/Finding_the_source_of_signals_on_Linux_with_strace_auditd_or_Systemtap?lang=en
+
 ## ps
 * 列出轻量级线程：ps -p 30408 -L
 
