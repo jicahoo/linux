@@ -121,7 +121,7 @@ munmap(0x7f092accc000, 4096)            =
 ```
 
 # CPU wa
-* http://veithen.io/2013/11/18/iowait-linux.html
+* http://veithen.io/2013/11/18/iowait-linux.html This may be incorrect. It's from TEST view. Not from Linux code, tool code level.
 
 ## Linux device file
 * https://askubuntu.com/questions/397493/what-does-the-first-character-of-unix-mode-string-indicate
